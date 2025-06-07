@@ -7,8 +7,6 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #000;
-            color: #fff;
             margin: 0;
             padding: 0;
             display: flex;
@@ -17,6 +15,12 @@
             justify-content: space-between;
             height: 100vh;
             text-align: center;
+            background-color: #000;
+            transition: background-color 1s ease;
+        }
+        
+        body.loaded {
+            background-color: #2ecc71;
         }
         
         header {
@@ -24,35 +28,107 @@
             font-size: 24px;
             font-weight: bold;
             letter-spacing: 2px;
+            color: #fff;
         }
         
         main {
             font-size: 18px;
             margin: 0 20px;
+            color: #fff;
         }
         
         footer {
             padding: 20px;
             font-size: 14px;
             opacity: 0.7;
-        }
-        
-        a {
             color: #fff;
-            text-decoration: none;
         }
         
-        a:hover {
-            text-decoration: underline;
+        .checkmark {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: scale(0.3);
+            transition: all 0.5s ease;
+        }
+        
+        body.loaded .checkmark {
+            opacity: 1;
+            transform: scale(1.5);
+        }
+        
+        .code-container {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .code {
+            font-family: monospace;
+            font-size: 16px;
+            margin-right: 15px;
+        }
+        
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: background 0.2s;
+        }
+        
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>ONLINE</header>
     <main>
-        Ожидание платежа.<br>
-        <a href="https://telegra.ph/Instrukciya-po-oplate-i-perevodu-deneg-06-07" target="_blank">Инструкция по оплате</a>
+        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+            <circle cx="26" cy="26" r="25" fill="none" stroke="#fff" stroke-width="2"/>
+            <path fill="none" stroke="#fff" stroke-width="4" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        </svg>
+        
+        <div>Благодарим вас за покупку.</div>
+        
+        <div class="code-container">
+            <span class="code">c67e12d849e031f04b48a561a02a6075</span>
+            <button class="copy-btn" onclick="copyCode()">
+                <i class="far fa-copy"></i>
+            </button>
+        </div>
     </main>
     <footer>snos tg</footer>
+
+    <script>
+        // Анимация при загрузке
+        window.onload = function() {
+            setTimeout(function() {
+                document.body.classList.add('loaded');
+            }, 300);
+        };
+        
+        // Функция копирования
+        function copyCode() {
+            const code = 'c67e12d849e031f04b48a561a02a6075';
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                btn.innerHTML = '<i class="fas fa-check"></i>';
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="far fa-copy"></i>';
+                }, 2000);
+            });
+        }
+    </script>
 </body>
 </html>
